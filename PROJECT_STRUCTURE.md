@@ -41,7 +41,7 @@ url-editor/
 │       ├── tsconfig.json
 │       └── tsconfig.node.json
 ├── package.json        # 根package.json
-├── pnpm-workspace.yaml # pnpm workspace配置
+├── package.json        # 根package.json (bun workspace配置)
 ├── setup.sh           # 环境设置脚本
 ├── .gitignore
 ├── README.md
@@ -92,7 +92,7 @@ url-editor/
 
 ### 环境要求
 - Node.js >= 18.0.0
-- pnpm >= 8.0.0
+- bun >= 1.0.0
 
 ### 快速开始
 ```bash
@@ -100,31 +100,31 @@ url-editor/
 ./setup.sh
 
 # 2. 启动开发服务器
-pnpm dev
+bun run dev
 
 # 3. 构建项目
-pnpm build
+bun run build
 ```
 
 ### 开发命令
 ```bash
 # 安装依赖
-pnpm install
+bun install
 
 # 启动开发服务器
-pnpm dev
+bun run dev
 
 # 构建所有包
-pnpm build
+bun run build
 
 # 运行测试
-pnpm test
+bun run test
 
 # 代码检查
-pnpm lint
+bun run lint
 
 # 清理构建文件
-pnpm clean
+bun run clean
 ```
 
 ## 技术栈
@@ -133,7 +133,7 @@ pnpm clean
 - **构建工具**: Vite 6
 - **样式框架**: TailwindCSS
 - **状态管理**: Pinia
-- **包管理**: pnpm
+- **包管理**: bun
 - **开发语言**: TypeScript
 - **项目结构**: Monorepo
 

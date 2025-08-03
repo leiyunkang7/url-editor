@@ -14,17 +14,18 @@ fi
 
 echo "✅ Node.js已安装: $(node --version)"
 
-# 检查pnpm是否已安装
-if ! command -v pnpm &> /dev/null; then
-    echo "📦 安装pnpm..."
-    npm install -g pnpm
+# 检查bun是否已安装
+if ! command -v bun &> /dev/null; then
+    echo "📦 安装bun..."
+    curl -fsSL https://bun.sh/install | bash
+    source ~/.bashrc
 fi
 
-echo "✅ pnpm已安装: $(pnpm --version)"
+echo "✅ bun已安装: $(bun --version)"
 
 # 安装项目依赖
 echo "📦 安装项目依赖..."
-pnpm install
+bun install
 
 echo "✅ 依赖安装完成！"
 
@@ -32,10 +33,10 @@ echo ""
 echo "🎉 环境设置完成！"
 echo ""
 echo "启动开发服务器:"
-echo "pnpm dev"
+echo "bun run dev"
 echo ""
 echo "构建项目:"
-echo "pnpm build"
+echo "bun run build"
 echo ""
 echo "查看项目结构:"
 echo "tree packages/" 

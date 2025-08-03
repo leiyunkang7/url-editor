@@ -7,11 +7,11 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm -r --parallel dev",
-    "build": "pnpm -r build",
-    "test": "pnpm -r test",
-    "lint": "pnpm -r lint",
-    "clean": "pnpm -r clean"
+    "dev": "bun run --cwd packages/core dev & bun run --cwd packages/shared dev & bun run --cwd packages/web dev",
+    "build": "bun run --cwd packages/core build & bun run --cwd packages/shared build & bun run --cwd packages/web build",
+    "test": "bun run --cwd packages/core test & bun run --cwd packages/shared test & bun run --cwd packages/web test",
+    "lint": "bun run --cwd packages/core lint & bun run --cwd packages/shared lint & bun run --cwd packages/web lint",
+    "clean": "bun run --cwd packages/core clean & bun run --cwd packages/shared clean & bun run --cwd packages/web clean"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
@@ -23,6 +23,6 @@
   },
   "engines": {
     "node": ">=18.0.0",
-    "pnpm": ">=8.0.0"
+    "bun": ">=1.0.0"
   }
 } 

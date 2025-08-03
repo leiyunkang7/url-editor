@@ -23,7 +23,7 @@
 
 ### 环境要求
 - Node.js >= 18.0.0
-- pnpm >= 8.0.0
+- bun >= 1.0.0
 
 ### 安装和运行
 ```bash
@@ -35,7 +35,7 @@ cd url-editor
 ./setup.sh
 
 # 3. 启动开发服务器
-pnpm dev
+bun run dev
 ```
 
 ## ⌨️ 快捷键说明
@@ -59,7 +59,7 @@ pnpm dev
 - **构建工具**: Vite 6
 - **样式框架**: TailwindCSS
 - **状态管理**: Pinia
-- **包管理**: pnpm
+- **包管理**: bun
 - **开发语言**: TypeScript
 - **项目结构**: Monorepo
 
