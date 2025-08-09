@@ -22,7 +22,7 @@
     "@typescript-eslint/parser": "^6.0.0"
   },
   "engines": {
-    "node": ">=18.0.0",
+    "node": ">=20.19.0",
     "bun": ">=1.0.0"
   }
 } 
