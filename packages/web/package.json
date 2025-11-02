@@ -10,11 +10,15 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "vue": "^3.4.0",
-    "pinia": "^2.1.0",
-    "mousetrap": "^1.6.5",
+    "@tiptap/extension-placeholder": "^3.0.9",
+    "@tiptap/pm": "^3.0.9",
+    "@tiptap/starter-kit": "^3.0.9",
+    "@tiptap/vue-3": "^3.0.9",
     "@url-editor/core": "workspace:*",
-    "@url-editor/shared": "workspace:*"
+    "@url-editor/shared": "workspace:*",
+    "mousetrap": "^1.6.5",
+    "pinia": "^2.1.0",
+    "vue": "^3.4.0"
   },
   "devDependencies": {
     "@types/mousetrap": "^1.6.0",
