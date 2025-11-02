@@ -7,25 +7,17 @@
         <div class="flex-1"></div>
         <button 
           @click="copyURL"
-          class="px-3 py-1 text-sm bg-primary-500 text-white rounded hover:bg-primary-600 transition-colors"
+          class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
         >
           复制
         </button>
       </div>
       
-      <div class="flex flex-wrap items-center gap-2 mb-4">
-        <URLBlock 
-          v-for="(block, index) in urlState.blocks" 
-          :key="block.type"
-          :block="block"
-          :is-focused="index === urlState.currentBlockIndex"
-          @update="updateBlock"
-          @focus="focusBlock(index)"
-        />
-      </div>
+      <!-- 富文本URL编辑器 -->
+      <RichURLEditor v-model="url" />
       
-      <div class="text-sm text-gray-500">
-        完整URL: {{ fullURL }}
+      <div class="text-sm text-gray-500 mt-4">
+        完整URL: {{ url }}
       </div>
     </div>
     
@@ -64,77 +56,43 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { URLParser, TemplateEngine, KeyboardManager, HistoryManager } from '@url-editor/core'
-import URLBlock from './URLBlock.vue'
+import { ref, computed, onMounted } from 'vue'
+import { URLParser, TemplateEngine, HistoryManager } from '@url-editor/core'
+import RichURLEditor from './RichURLEditor.vue'
 
-const urlState = ref(URLParser.parse('https://www.example.com:80/api/users'))
+const url = ref('https://www.example.com:80/api/users')
 const templateEngine = new TemplateEngine()
 const historyManager = new HistoryManager()
-const keyboardManager = new KeyboardManager(urlState.value)
 
 const templates = computed(() => templateEngine.getTemplates())
-const shortcuts = computed(() => keyboardManager.getShortcuts())
 
-const fullURL = computed(() => URLParser.build(urlState.value))
-
-const updateBlock = (type: string, value: string) => {
-  // 更新对应区块的值
-  switch (type) {
-    case 'protocol':
-      urlState.value.protocol = value
-      break
-    case 'domain':
-      urlState.value.domain = value
-      break
-    case 'port':
-      urlState.value.port = value
-      break
-    case 'path':
-      urlState.value.path = value
-      break
-    case 'query':
-      urlState.value.query = value
-      break
-    case 'fragment':
-      urlState.value.fragment = value
-      break
-  }
-  
-  // 重新解析URL以更新区块
-  urlState.value = URLParser.parse(URLParser.build(urlState.value))
-  historyManager.addToHistory(fullURL.value)
-}
-
-const focusBlock = (index: number) => {
-  urlState.value.currentBlockIndex = index
-  urlState.value.blocks.forEach((block, i) => {
-    block.focused = i === index
-  })
-}
+// 新的快捷键列表
+const shortcuts = computed(() => [
+  { key: 'Ctrl+/ 或 F1', description: '显示快捷键帮助' },
+  { key: 'Ctrl+Space', description: '触发自动补全' },
+  { key: 'Ctrl+Click', description: '选中整个URL部分' },
+  { key: 'Ctrl+Shift+H', description: '切换协议(http↔https)' },
+  { key: 'Esc', description: '关闭提示框/补全菜单' },
+  { key: 'Ctrl+C', description: '复制完整URL' },
+  { key: 'Ctrl+V', description: '粘贴并自动解析URL' },
+])
 
 const copyURL = () => {
-  navigator.clipboard.writeText(fullURL.value)
+  navigator.clipboard.writeText(url.value)
 }
 
 const applyTemplate = (templateName: string) => {
   try {
-    urlState.value = templateEngine.applyTemplate(templateName, urlState.value)
-    historyManager.addToHistory(fullURL.value)
+    const urlState = URLParser.parse(url.value)
+    const newState = templateEngine.applyTemplate(templateName, urlState)
+    url.value = URLParser.build(newState)
+    historyManager.addToHistory(url.value)
   } catch (error) {
     console.error('Failed to apply template:', error)
   }
 }
 
-const handleKeydown = (event: KeyboardEvent) => {
-  keyboardManager.handleKeyEvent(event)
-}
-
 onMounted(() => {
-  document.addEventListener('keydown', handleKeydown)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('keydown', handleKeydown)
+  historyManager.addToHistory(url.value)
 })
 </script> 

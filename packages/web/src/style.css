@@ -14,14 +14,32 @@
   }
   
   .url-block:focus {
-    @apply border-primary-500 ring-2 ring-primary-500/20 outline-none;
+    @apply border-blue-500 ring-2 ring-blue-500/20 outline-none;
   }
   
   .url-block.focused {
-    @apply border-primary-500 bg-primary-50;
+    @apply border-blue-500 bg-blue-50;
   }
   
   .shortcut-hint {
     @apply text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded;
+  }
+
+  /* Rich URL Editor Styles */
+  .rich-url-editor .editor-container {
+    @apply transition-all duration-200;
+  }
+
+  .rich-url-editor .editor-container:focus-within {
+    @apply ring-2 ring-blue-500/20;
+  }
+
+  /* URL部分高亮样式 */
+  .url-part-clickable {
+    @apply transition-all duration-150 rounded-sm px-0.5;
+  }
+
+  .url-part-clickable:hover {
+    @apply bg-blue-50;
   }
 } 
